@@ -11,8 +11,12 @@ st.sidebar.title("Precious Metal Prices 2018-2021")
 metal = st.sidebar.selectbox("Metal", data.columns[1:], index=1)
 date_range = st.sidebar.date_input("Date Range", [data.DateTime.min().date(), data.DateTime.max().date()])
 
+# Convert date_range to datetime
+start_date = pd.to_datetime(date_range[0])
+end_date = pd.to_datetime(date_range[1])
+
 # Filter data
-filtered_data = data.loc[(data.DateTime >= date_range[0]) & (data.DateTime <= date_range[1])]
+filtered_data = data.loc[(data.DateTime >= start_date) & (data.DateTime <= end_date)]
 
 # Create a plotly plot
 fig = px.line(
